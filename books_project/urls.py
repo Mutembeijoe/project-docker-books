@@ -17,8 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    # admin urls
     path('admin/', admin.site.urls),
+
+    #pages urls 
     path('', include('pages.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/', include('users.urls')),
+
+    # allauth urls
+    path('accounts/', include('allauth.urls')),
 ]
