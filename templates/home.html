@@ -3,17 +3,9 @@
 {% block title %} Home {% endblock title%}
 {% block content %}
 <h1>Home Page</h1>
-{% if user.is_authenticated %}
-Hi, {{user.email}}
-<a href="{% url 'logout' %}">Logout</a>
-{% else %}
-<a href="{% url 'login' %}">Login</a>
-<a href="{% url 'signup' %}">SignUp</a>
-{% endif %}
 
 <div>
-    <img class="cover" src="{% static 'img/The_Strange_Case_of_Dr_Jekyll_and_Mr_Hyde.png' %}" alt="">
-
+    <img class="cover" src="{% static 'img/The_Strange_Case_of_Dr_Jekyll_and_Mr_Hyde.png' %}" alt="book">
 </div>
 
 {% endblock content %}
