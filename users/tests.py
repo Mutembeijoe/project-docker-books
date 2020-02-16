@@ -1,7 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse, resolve
-from .views import SignUpView
 # Create your tests here.
 
 
@@ -37,25 +36,28 @@ class CustomUserTests(TestCase):
 
 
 class SignUpPageTest(TestCase):
-    def setUp(self) -> None:
-        url = reverse('signup')
+    username = 'savitar'
+    email = 'savitar@email.com'
+
+    def setUp(self):
+        url =reverse('account_signup')
         self.response = self.client.get(url)
 
-    def test_signup_uses_template(self):
-        self.assertTemplateUsed(self.response, 'registration/signup.html')
+    def test_signup_template(self):
+        self.assertTemplateUsed(self.response, 'account/signup.html')
+        self.assertTrue(self.response.status_code, 200)
+        self.assertContains(self.response, 'SignUp')
+        self.assertNotContains(self.response, 'Hello World')
 
-    def test_signup_response_status(self):
-        self.assertEqual(self.response.status_code, 200)
 
-    def test_signup_url_resolves_SignUpView(self):
-        view = resolve(reverse('signup'))
-        self.assertEqual(
-            view.func.__name__,
-            SignUpView.as_view().__name__
-        )
+    def test_signup_form(self):
+        new_user = get_user_model().objects.create_user(
+        self.username, self.email, 'hesoyam')
 
-    def test_signup_page_contains(self):
-        self.assertContains(self.response,'SignUp')
+        self.assertEqual(get_user_model().objects.all().count(), 1)
 
-    def test_signup_page_not_contains(self):
-        self.assertNotContains(self.response,'LogIn')
+        self.assertEqual(get_user_model().objects.all()
+        [0].username, self.username)
+
+        self.assertEqual(get_user_model().objects.all()
+        [0].email, self.email)
