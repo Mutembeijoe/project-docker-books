@@ -23,4 +23,4 @@ class Review(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     def __str__(self):
-        self.review
+        return f'{self.review}'
