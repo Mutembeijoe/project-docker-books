@@ -1,7 +1,10 @@
 {% extends '_base.html' %}
 {% block title %} Book List {% endblock title %}
 {% block content %}
-{% for book in book_list %}
-<h3> <a href="{{book.get_absolute_url}}">{{book.title}}</a></h3>
-{% endfor %}
+<div>
+    <h3>{{book.title}}</h3>
+    <p>Author: {{book.author}}</p>
+    <p>Price: ${{book.price}}</p>
+</div>
+
 {% endblock content %}
