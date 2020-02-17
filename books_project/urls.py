@@ -25,4 +25,7 @@ urlpatterns = [
 
     # allauth urls
     path('accounts/', include('allauth.urls')),
+
+    # books urls
+    path('books/', include('books.urls'))
 ]
