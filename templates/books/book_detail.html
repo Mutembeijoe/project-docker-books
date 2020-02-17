@@ -5,6 +5,15 @@
     <h3>{{book.title}}</h3>
     <p>Author: {{book.author}}</p>
     <p>Price: ${{book.price}}</p>
+    <div>
+        <h4>Reviews</h4>
+        <ul>
+            {% for review in book.reviews.all %}
+            <li>{{review.review}} -({{review.author}})</li>
+            {% endfor %}
+        </ul>
+    </div>
+
 </div>
 
 {% endblock content %}
