@@ -161,3 +161,7 @@ ACCOUNT_USERNAME_REQUIRED = False # new
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # new
 ACCOUNT_EMAIL_REQUIRED = True # new
 ACCOUNT_UNIQUE_EMAIL = True # new
+
+
+# Default email sender
+DEFAULT_FROM_EMAIL = 'admin@project-django-books.com'
