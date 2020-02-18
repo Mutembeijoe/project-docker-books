@@ -2,7 +2,9 @@
 {% block title %} Book List {% endblock title %}
 {% block content %}
 <div>
+    {% if book.cover %}
     <img class="cover" src="{{book.cover.url}}" alt="{{book.title}} cover">
+    {% endif %}
     <h3>{{book.title}}</h3>
     <p>Author: <span class="lead">{{book.author}}</span></p>
     <p>Price: ${{book.price}}</p>
