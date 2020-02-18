@@ -1,6 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Permission
 from .models import Book, Review
 
 
@@ -20,6 +21,8 @@ class BookTests(TestCase):
             password='testing321'
         )
 
+        self.special_permission = Permission.objects.get(codename='special_status')
+
         self.review = Review.objects.create( # new
             book = self.book,
             author = self.user,
@@ -31,13 +34,26 @@ class BookTests(TestCase):
         self.assertEqual(self.book.author, 'JK Rowling')
         self.assertEqual(self.book.price, 27)
 
-    def test_book_list_view(self):
-       response = self.client.get(reverse('book_list'))
-       self.assertEqual(response.status_code, 200)
-       self.assertTemplateUsed(response, 'books/book_list.html')
-       self.assertContains(response, 'Harry Potter')
+    def test_book_list_view_for_logged_in_users(self):
+        self.client.login(email='reviewuser@email.com',password='testing321')
+        response = self.client.get(reverse('book_list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'books/book_list.html')
+        self.assertContains(response, 'Harry Potter')
+    
+
+    def test_book_list_view_for_logged_out_users(self):
+        self.client.logout()
+        response = self.client.get(reverse('book_list'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '%s?next=/books/' % (reverse('account_login')))
+        response = self.client.get('%s?next=/books/' % (reverse('account_login')))
+        self.assertContains(response, 'Log In')
+
 
     def test_book_detail_view(self):
+        self.client.login(email='reviewuser@email.com',password='testing321')
+        self.user.user_permissions.add(self.special_permission)
         response = self.client.get(self.book.get_absolute_url())
         no_response = self.client.get('/books/1')
         self.assertEqual(response.status_code, 200)    
