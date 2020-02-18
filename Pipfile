@@ -12,6 +12,7 @@ django-crispy-forms = "==1.8.1"
 django-allauth = "==0.41.0"
 django-environ = "*"
 pillow = "==7.0.0"
+django-debug-toolbar = "==2.2"
 
 [requires]
 python_version = "3.8"
