@@ -19,7 +19,7 @@ class HomePageTests(SimpleTestCase):
         self.assertEqual(self.response.status_code, 200)
 
     def test_homepage_contains_html(self):
-        self.assertContains(self.response, 'Home Page')
+        self.assertContains(self.response, 'search')
 
     def test_homepage_does_not_contain(self):
         self.assertNotContains(self.response, "Hello World")
