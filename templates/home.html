@@ -2,10 +2,17 @@
 {% load static %}
 {% block title %} Home {% endblock title%}
 {% block content %}
-<h1>Home Page</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <form class="" action="{% url 'search_results' %}" method="GET">
+                <input class="form-control mr-sm-2" type="text" name="q" id="q" placeholder="search">
+            </form>
+        </div>
+    </div>
 
-<div>
-    <img class="cover" src="{% static 'img/The_Strange_Case_of_Dr_Jekyll_and_Mr_Hyde.png' %}" alt="book">
 </div>
+
+
 
 {% endblock content %}
