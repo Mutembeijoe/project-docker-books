@@ -10,11 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-# django-environ config
-import environ
-env = environ.Env()
-environ.Env.read_env()  # reading .env file
-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -177,11 +172,11 @@ ACCOUNT_UNIQUE_EMAIL = True # new
 
 # Email Config
 DEFAULT_FROM_EMAIL = 'admin@project-django-books.com'
-EMAIL_HOST = env.str('EMAIL_HOST')
-EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
-EMAIL_PORT = env.int('EMAIL_PORT')
-EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = os.environ.get('EMAIL_PORT')
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS')
 
 
 # django-debug-toolbar
